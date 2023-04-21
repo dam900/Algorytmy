@@ -2,6 +2,7 @@ import 'package:quick_sort/custom_list.dart';
 
 void quickSort(DoubleLinkedList<int> list, int left, int right){
     if (left < right){
+      print('robi sie');
       int pivotIndex = _partition(list, left, right);
       quickSort(list, left, pivotIndex-1);
       quickSort(list, pivotIndex+1, right);

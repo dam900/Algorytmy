@@ -65,9 +65,10 @@ class DoubleLinkedList<T> {
   }
 
   T? popBack() {
-    Node<T> popedNode = _tail!;
-    _tail = _tail!.prev;
-    _size--;
+    Node<T> popedNode = this._tail!;
+    this._tail = _tail!.prev;
+    this._tail!.next = null;
+    this._size--;
     return popedNode.value;
   }
 

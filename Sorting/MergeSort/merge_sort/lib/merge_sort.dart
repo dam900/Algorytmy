@@ -16,7 +16,7 @@ void merge(DoubleLinkedList<int> list, int start, int mid, int end) {
     return;
   }
 
-  while (i <= mid && j <= end) {
+  while (i < mid + 1 && j < end + 1) {
     if (list[i] <= list[j]) {
       i++;
     } else {

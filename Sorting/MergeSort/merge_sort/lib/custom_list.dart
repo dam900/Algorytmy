@@ -97,22 +97,23 @@ class DoubleLinkedList<T> {
     this._size += other.size;
   }
 
-  void pushFront(T value){
+  void pushFront(T value) {
     Node<T> newNode = Node(value: value, prev: null, next: this._head);
     this._head!.prev = newNode;
     this._head = newNode;
+    this._size++;
   }
 
-  void insertAt(int index, T value){
+  void insertAt(int index, T value) {
     if (index == 0) {
       this.pushFront(value);
       return;
     }
-    if (index == this._size){
+    if (index == this._size) {
       this.pushBack(value);
       return;
     }
-    if (index > this._size) {
+    if (index > this._size - 1 || index < 0) {
       print('out of bounds');
       return;
     }
@@ -121,7 +122,7 @@ class DoubleLinkedList<T> {
     late Node<T> elementAfter;
     late Node<T> elementBefore;
     while (currNode != null) {
-      if (n == index){
+      if (n == index) {
         elementBefore = currNode.prev!;
         elementAfter = currNode;
         break;
@@ -129,30 +130,35 @@ class DoubleLinkedList<T> {
       n++;
       currNode = currNode.next;
     }
-    Node<T> newNode = Node(value: value, prev: elementBefore, next: elementAfter);
+    Node<T> newNode =
+        Node(value: value, prev: elementBefore, next: elementAfter);
     elementAfter.prev = newNode;
     elementBefore.next = newNode;
-
+    this._size++;
   }
 
-  T removeAt(int index){
+  T removeAt(int index) {
     late T valueToReturn;
-    if (index == 0){
+    if (index == 0) {
       valueToReturn = this._head!.value;
       this._head = this._head!.next;
       return valueToReturn;
     }
-    if (index == this._size){
+    if (index == this._size - 1) {
       valueToReturn = this._tail!.value;
       this._tail = this._tail!.prev;
       return valueToReturn;
+    }
+    if (index > this._size - 1 || index < 0) {
+      print('out of bounds');
+      return 0 as T;
     }
     int n = 0;
     Node<T>? currNode = _head;
     late Node<T> elementAfter;
     late Node<T> elementBefore;
     while (currNode != null) {
-      if (n == index){
+      if (n == index) {
         elementBefore = currNode.prev!;
         elementAfter = currNode.next!;
         valueToReturn = currNode.value;
@@ -163,6 +169,7 @@ class DoubleLinkedList<T> {
     }
     elementBefore.next = elementAfter;
     elementAfter.prev = elementBefore;
+    this._size--;
     return valueToReturn;
   }
 }
